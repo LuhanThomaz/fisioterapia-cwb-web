@@ -16,6 +16,7 @@ type Step = {
 };
 
 const city = "Curitiba";
+const siteUrl = "https://www.fisioterapiacwb.com.br";
 const whatsappNumber = "+5541987178565";
 const whatsappMessage =
   "Olá! Gostaria de agendar minha avaliação de fisioterapia.";
@@ -140,10 +141,105 @@ const faqs = [
   }
 ];
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
+      name: "Fisioterapia CWB",
+      url: siteUrl,
+      inLanguage: "pt-BR",
+      description:
+        "Fisioterapia domiciliar para idosos em Curitiba, com foco em recuperação funcional, prevenção de quedas, reabilitação e mobilidade."
+    },
+    {
+      "@type": "MedicalBusiness",
+      "@id": `${siteUrl}/#business`,
+      name: "Adrielly Costa Pontarolo - Fisioterapia Domiciliar",
+      url: siteUrl,
+      telephone: whatsappNumber,
+      image: `${siteUrl}/images/adrielly-perfil.jpg`,
+      priceRange: "$$",
+      medicalSpecialty: [
+        "Fisioterapia domiciliar",
+        "Fisioterapia geriátrica",
+        "Reabilitação funcional",
+        "Fisioterapia ortopédica"
+      ],
+      identifier: {
+        "@type": "PropertyValue",
+        name: "CREFITO",
+        value: "203589-F"
+      },
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: city,
+        addressRegion: "PR",
+        addressCountry: "BR"
+      },
+      areaServed: [
+        "Curitiba",
+        "Campo Comprido",
+        "Vila Izabel",
+        "Santa Quitéria",
+        "Portão",
+        "Fazendinha",
+        "Bigorrilho",
+        "Água Verde",
+        "Mercês",
+        "Orleans",
+        "São Braz",
+        "Seminário"
+      ],
+      description:
+        "Atendimento de fisioterapia domiciliar em Curitiba para idosos, recuperação pós-cirurgia, prevenção de quedas, mobilidade, fortalecimento e autonomia."
+    },
+    {
+      "@type": "Service",
+      "@id": `${siteUrl}/#service`,
+      name: "Fisioterapia domiciliar para idosos em Curitiba",
+      provider: {
+        "@id": `${siteUrl}/#business`
+      },
+      areaServed: {
+        "@type": "City",
+        name: city
+      },
+      serviceType: [
+        "Fisioterapia domiciliar",
+        "Reabilitação de idosos",
+        "Recuperação funcional",
+        "Prevenção de quedas",
+        "Fisioterapia pós-cirurgia",
+        "Fisioterapia para mobilidade e autonomia"
+      ],
+      description:
+        "Plano terapêutico individualizado para idosos no conforto do lar, com foco em segurança, mobilidade, alívio de dores e qualidade de vida."
+    },
+    {
+      "@type": "FAQPage",
+      "@id": `${siteUrl}/#faq`,
+      mainEntity: faqs.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: item.answer
+        }
+      }))
+    }
+  ]
+};
 
 export default function Home() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       {/* WhatsApp flutuante */}
       <a
         className="floating-whatsapp"
