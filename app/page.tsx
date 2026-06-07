@@ -221,7 +221,6 @@ export default function Home() {
             <ServiceGrid services={services} />
           </div>
         </section>
-        <span className="kicker">Especialidades</span>
 
         {/* ── Visual Band – fundo cinza ─────────────────────────── */}
         <section className="section-block section-gray" data-reveal data-delay="1">
